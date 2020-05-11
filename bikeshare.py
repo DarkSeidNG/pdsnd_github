@@ -60,28 +60,28 @@ def load_data(city, month, day):
         df - Pandas DataFrame containing city data filtered by month and day
     """
 
-    
-    ### Load data file into Pandas DataFrame
+
+    # Load data file into Pandas DataFrame
     df = pd.read_csv(CITY_DATA[city])
 
-    ### Convert Start Time column to datetime for easy manipulation
+    # Convert Start Time column to datetime for easy manipulation
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
-    ### Get month, day of week and hour from Start Time and create new columns with this data
+    # Get month, day of week and hour from Start Time and create new columns with this data
     df['Month'] = df['Start Time'].dt.month
     df['Day Of Week'] = df['Start Time'].dt.weekday_name
     df['Hour'] = df['Start Time'].dt.hour
 
-    ### If month selected is not all then filter by the selected month
+    # If month selected is not all then filter by the selected month
     if month != 'all':
         month = AVAILABLE_MONTHS.index(month) + 1
 
-    	### create new data with the filtered items
+    	# create new data with the filtered items
         df = df[df['Month'] == month]
 
-    ### If day of the week selected is not all filter by the selected day of the week
+    # If day of the week selected is not all filter by the selected day of the week
     if day != 'all':
-        ### Create new data from the filtered records
+        # Create new data from the filtered records
         df = df[df['Day Of Week'] == day.title()]
 
     return df
@@ -173,7 +173,7 @@ def user_stats(df):
         print('\nThe Earliest Year Is:', earliest_year_of_birth)
     except KeyError:
         print("\nThe Earliest Year Is: Data Unavailable.")
-    
+
     try:
         most_recent_year_of_birth = df['Birth Year'].max()
         print('\nThe Most Recent Year Is:', most_recent_year_of_birth)
